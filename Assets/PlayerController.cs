@@ -1,13 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
+    public float rollSpeed = 5f;
 
     private Rigidbody2D rb;
     private Animator animator;
     private bool isGrounded = false;
+    private bool isRolling = false;
     private float xVelocity;
 
     // Attack variables
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private int attackCombo = 0;
     private float comboResetTime = 1f;
     private float lastAttackTime = 0f;
+    private float lastImageXPos;
 
     void Start()
     {
@@ -26,9 +29,18 @@ public class PlayerController : MonoBehaviour
     {
         // --- Horizontal Movement ---
         // Only allow movement if NOT attacking
-        if (!isAttacking)
+        if (!isAttacking && !isRolling)
         {
             xVelocity = Input.GetAxis("Horizontal") * moveSpeed;
+        }
+        else if (isRolling)
+        {
+            xVelocity = transform.localScale.x * rollSpeed;
+            if (Mathf.Abs(transform.position.x - lastImageXPos) > 0.1f)
+            {
+                PlayerAfterImagePool.Instance.GetFromPool();
+                lastImageXPos = transform.position.x;
+            }
         }
         else
         {
@@ -46,10 +58,16 @@ public class PlayerController : MonoBehaviour
         }
 
         // --- Jumping ---
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isAttacking) // Disable jump during attack
+        if (Input.GetKeyDown(KeyCode.K) && isGrounded && !isAttacking) // Disable jump during attack
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
+        }
+
+        // --- Rolling ---
+        if (Input.GetKeyDown(KeyCode.L) && isGrounded && !isRolling && !isAttacking) // Press 'L' to roll
+        {
+            Roll();
         }
 
         // --- Attacking ---
@@ -74,14 +92,6 @@ public class PlayerController : MonoBehaviour
             }
 
             isAttacking = true;
-        }
-
-        // --- Combo Attack ---
-        if (Input.GetKeyDown(KeyCode.J) && isAttacking && animator.GetBool("CanCombo"))
-        {
-            animator.SetTrigger("Attack");
-            attackCombo++;
-            lastAttackTime = Time.time;
         }
     }
 
@@ -131,5 +141,21 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("CanCombo", true);
         }
+    }
+
+    private void Roll()
+    {
+        animator.SetBool("IsRolling", true);
+        isRolling = true;
+
+        PlayerAfterImagePool.Instance.GetFromPool();
+        lastImageXPos = transform.position.x;
+    }
+
+    public void OnRollingEnd()
+    {
+        // Roll finished, reset to normal movement
+        isRolling = false;
+        animator.SetBool("IsRolling", false);
     }
 }
