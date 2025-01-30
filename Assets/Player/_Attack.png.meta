@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e4501083171d8f449acbb4ea9f25cb9a
+guid: 6fcc2cbc6cfbaf741b089ef3888df7aa
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,85 +110,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle-Sheet_0
+      name: _Attack_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 64
-        height: 64
-      alignment: 1
-      pivot: {x: 0, y: 1}
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b31de73a74c26574c9752eb852d983de
-      internalID: -1094529199
+      spriteID: 0284868ac21336a478d2a073067271fb
+      internalID: 1457466175
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle-Sheet_1
+      name: _Attack_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 16
-        width: 64
-        height: 64
-      alignment: 1
-      pivot: {x: 0, y: 1}
+        x: 120
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aeaab27e14c4a694696a1c093337e7a7
-      internalID: -1265877842
+      spriteID: 7d76b247e160e0243a2fcec3975cc645
+      internalID: 1429360595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle-Sheet_2
+      name: _Attack_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 16
-        width: 64
-        height: 64
-      alignment: 1
-      pivot: {x: 0, y: 1}
+        x: 240
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3415b1a37ec1f164fb026bfaa58af9ae
-      internalID: -935016343
+      spriteID: fb59e040443e71c4492959518a461208
+      internalID: -1114387269
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle-Sheet_3
+      name: _Attack_3
       rect:
         serializedVersion: 2
-        x: 192
-        y: 16
-        width: 64
-        height: 64
-      alignment: 1
-      pivot: {x: 0, y: 1}
+        x: 360
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ba804b278919c44280389b86e0670f4
-      internalID: 568655850
+      spriteID: 89d6fcb02bed51f429d3c9fd06b61131
+      internalID: -1164582992
       vertices: []
       indices: 
       edges: []
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Idle-Sheet_0: -1094529199
-      Idle-Sheet_1: -1265877842
-      Idle-Sheet_2: -935016343
-      Idle-Sheet_3: 568655850
+      _Attack_0: 1457466175
+      _Attack_1: 1429360595
+      _Attack_2: -1114387269
+      _Attack_3: -1164582992
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
