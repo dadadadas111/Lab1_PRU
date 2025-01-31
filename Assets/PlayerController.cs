@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         else if (isRolling)
         {
             xVelocity = transform.localScale.x * rollSpeed;
-            if (Mathf.Abs(transform.position.x - lastImageXPos) > 0.1f)
+            if (Mathf.Abs(transform.position.x - lastImageXPos) > 0.5f)
             {
                 PlayerAfterImagePool.Instance.GetFromPool();
                 lastImageXPos = transform.position.x;
@@ -104,7 +104,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector2(0f, rb.velocity.y); // Stop horizontal movement
+            // move forward during attack
+            rb.velocity = new Vector2(transform.localScale.x * 1f, rb.velocity.y);
         }
 
         animator.SetFloat("xVelocity", Mathf.Abs(xVelocity));
