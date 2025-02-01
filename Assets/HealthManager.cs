@@ -14,13 +14,17 @@ public class HealthManager : MonoBehaviour
     // the current health of the player
     public float currentHealth;
 
-
+    private SpriteRenderer sr;
+    private Rigidbody2D rb;
+    private Animator animator;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        sr = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -45,17 +49,25 @@ public class HealthManager : MonoBehaviour
         currentHealth -= damage;
         // update the health bar
         healthBar.value = currentHealth / maxHealth;
+
+        // flash the player sprite
+        StartCoroutine(FlashSpriteHit());
+
         // check if the player is dead
         if (currentHealth <= 0)
         {
             Die();
         }
+
+        // apply knockback
+        rb.velocity = new Vector2(-transform.localScale.x * 8f, 5f);
     }
 
     public void Die()
     {
+        animator.SetBool("IsDead", true);
         // destroy the player
-        //Destroy(gameObject);
+        //Destroy(transform);
     }
 
     public void Heal(float healAmount)
@@ -66,5 +78,27 @@ public class HealthManager : MonoBehaviour
         currentHealth = Mathf.Min(currentHealth, maxHealth);
         // update the health bar
         healthBar.value = currentHealth / maxHealth;
+        // flash the player sprite
+        StartCoroutine(FlashSpriteHeal());
+    }
+
+    IEnumerator FlashSpriteHit()
+    {
+        // set the sprite color to red
+        sr.color = Color.red;
+        // wait for 0.3 seconds
+        yield return new WaitForSeconds(0.3f);
+        // set the sprite color back to normal
+        sr.color = Color.white;
+    }
+
+    IEnumerator FlashSpriteHeal()
+    {
+        // set the sprite color to green
+        sr.color = Color.green;
+        // wait for 0.3 seconds
+        yield return new WaitForSeconds(0.3f);
+        // set the sprite color back to normal
+        sr.color = Color.white;
     }
 }

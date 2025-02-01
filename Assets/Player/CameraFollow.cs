@@ -19,10 +19,11 @@ public class CameraFollow : MonoBehaviour
             // Smoothly move the camera towards the desired position
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
-            // Snap the camera to pixel-perfect positions
+            // Snap the camera to pixel-perfect positions AFTER smoothing
             smoothedPosition.x = Mathf.Round(smoothedPosition.x * pixelsPerUnit) / pixelsPerUnit;
             smoothedPosition.y = Mathf.Round(smoothedPosition.y * pixelsPerUnit) / pixelsPerUnit;
 
+            // Apply the smoothed and snapped position to the camera
             transform.position = smoothedPosition;
         }
     }

@@ -6,6 +6,10 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
     public float rollSpeed = 5f;
 
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
+    public LayerMask enemyLayers;
+
     private Rigidbody2D rb;
     private Animator animator;
     private bool isGrounded = false;
@@ -58,8 +62,9 @@ public class PlayerController : MonoBehaviour
         }
 
         // --- Jumping ---
-        if (Input.GetKeyDown(KeyCode.K) && isGrounded && !isAttacking) // Disable jump during attack
+        if (Input.GetKeyDown(KeyCode.K) && isGrounded && !isAttacking && !isRolling) // Disable jump during attack
         {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Objects"), true);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
         }
@@ -73,25 +78,7 @@ public class PlayerController : MonoBehaviour
         // --- Attacking ---
         if (Input.GetKeyDown(KeyCode.J) && !isAttacking && isGrounded)
         {
-            animator.SetBool("IsAttackFinished", false);
-            if (Time.time - lastAttackTime > comboResetTime)
-            {
-                attackCombo = 0;
-            }
-
-            attackCombo++;
-            lastAttackTime = Time.time;
-
-            if (attackCombo == 1)
-            {
-                animator.SetTrigger("Attack");
-            }
-            else if (attackCombo == 2)
-            {
-                animator.SetTrigger("Attack");
-            }
-
-            isAttacking = true;
+            Attack();
         }
     }
 
@@ -111,7 +98,12 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("xVelocity", Mathf.Abs(xVelocity));
         animator.SetFloat("yVelocity", rb.velocity.y);
         animator.SetBool("isJumping", !isGrounded);
-        animator.SetBool("isFalling", !isGrounded && rb.velocity.y < 0);
+        animator.SetBool("isFalling", !isGrounded && rb.velocity.y < 0.1);
+
+        if (isGrounded && !isRolling)
+        {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Objects"), false);
+        }
 
         // Combo reset logic
         var timePassedFromLastAttack = Time.time - lastAttackTime;
@@ -124,9 +116,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        isGrounded = true;
-        animator.SetBool("isJumping", !isGrounded);
-        animator.SetBool("isFalling", false);
+        if (rb.velocity.y <= 0.1)
+        {
+            isGrounded = true;
+            animator.SetBool("isJumping", !isGrounded);
+            animator.SetBool("isFalling", false);
+        }
+        //isGrounded = true;
+        //animator.SetBool("isJumping", !isGrounded);
+        //animator.SetBool("isFalling", false);
     }
 
     public void OnAttackEnd()
@@ -146,6 +144,7 @@ public class PlayerController : MonoBehaviour
 
     private void Roll()
     {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Objects"), true);
         animator.SetBool("IsRolling", true);
         isRolling = true;
 
@@ -153,10 +152,49 @@ public class PlayerController : MonoBehaviour
         lastImageXPos = transform.position.x;
     }
 
+    private void Attack()
+    {
+        animator.SetBool("IsAttackFinished", false);
+        if (Time.time - lastAttackTime > comboResetTime)
+        {
+            attackCombo = 0;
+        }
+
+        attackCombo++;
+        lastAttackTime = Time.time;
+
+        if (attackCombo == 1)
+        {
+            animator.SetTrigger("Attack");
+        }
+        else if (attackCombo == 2)
+        {
+            animator.SetTrigger("Attack");
+        }
+
+        isAttacking = true;
+
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            enemy.GetComponent<HealthManager>().TakeDamage(10);
+            //Debug.Log("Hit: " + enemy.name);
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
     public void OnRollingEnd()
     {
         // Roll finished, reset to normal movement
         isRolling = false;
         animator.SetBool("IsRolling", false);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Objects"), false);
     }
 }
