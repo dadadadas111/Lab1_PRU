@@ -2,29 +2,49 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform player; // Assign the player in the Inspector
-    public Vector3 offset = new Vector3(0f, 0f, -10f); // Camera offset (z = -10 for 2D)
-    public float smoothSpeed = 0.125f; // How smoothly the camera follows
+    public float FollowSpeed = 2f;
+    public float yOffset = 1f;
+    public Transform target;
+    public SpriteRenderer background;
 
-    public float fixedYPosition = 0f; // Lock the camera's Y position to this value
-    public int pixelsPerUnit = 16; // Match your sprite's Pixels Per Unit (PPU)
+    private float minX, maxX, minY, maxY;
+    private float camHalfWidth, camHalfHeight;
 
-    void LateUpdate()
+    void Start()
     {
-        if (player != null)
+        if (background == null)
         {
-            // Calculate the desired camera position (only follow X, ignore Y)
-            Vector3 desiredPosition = new Vector3(player.position.x, fixedYPosition, 0f) + offset;
-
-            // Smoothly move the camera towards the desired position
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-
-            // Snap the camera to pixel-perfect positions AFTER smoothing
-            smoothedPosition.x = Mathf.Round(smoothedPosition.x * pixelsPerUnit) / pixelsPerUnit;
-            smoothedPosition.y = Mathf.Round(smoothedPosition.y * pixelsPerUnit) / pixelsPerUnit;
-
-            // Apply the smoothed and snapped position to the camera
-            transform.position = smoothedPosition;
+            Debug.LogError("Background is not assigned!");
+            return;
         }
+
+        Camera cam = Camera.main;
+        camHalfHeight = cam.orthographicSize;
+        camHalfWidth = camHalfHeight * cam.aspect;
+
+        // Get the background size based on the sprite
+        float bgHalfWidth = background.bounds.size.x / 2f;
+        float bgHalfHeight = background.bounds.size.y / 2f;
+
+        // Calculate camera movement limits
+        minX = background.transform.position.x - bgHalfWidth + camHalfWidth;
+        maxX = background.transform.position.x + bgHalfWidth - camHalfWidth;
+        minY = background.transform.position.y - bgHalfHeight + camHalfHeight;
+        maxY = background.transform.position.y + bgHalfHeight - camHalfHeight;
+    }
+
+    void Update()
+    {
+        if (target == null) return;
+
+        // Calculate new target position
+        Vector3 newPos = new Vector3(target.position.x, target.position.y + yOffset, -10f);
+        newPos = Vector3.Slerp(transform.position, newPos, FollowSpeed * Time.deltaTime);
+
+        // Clamp the camera position within background bounds
+        newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
+        newPos.y = Mathf.Clamp(newPos.y, minY, maxY);
+
+        transform.position = newPos;
     }
 }

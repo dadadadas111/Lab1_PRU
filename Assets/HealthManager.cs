@@ -26,11 +26,18 @@ public class HealthManager : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        sr.color = Color.white;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // if falling off the map, die
+        if (transform.position.y < -10)
+        {
+            Die();
+        }
+
         if (Input.GetKeyDown(KeyCode.T))
         {
             TakeDamage(10f);

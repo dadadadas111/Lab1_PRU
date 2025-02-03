@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator animator;
+    private HealthManager healthManager;
     private bool isGrounded = false;
     public bool isRolling = false;
     private float xVelocity;
@@ -27,10 +28,18 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        healthManager = GetComponent<HealthManager>();
     }
 
     void Update()
     {
+        if (healthManager.currentHealth <= 0)
+        {
+            healthManager.Die();
+            //animator.Play("Die", 0, 0f);
+            return;
+        }
+
         // --- Horizontal Movement ---
         // Only allow movement if NOT attacking
         if (!isAttacking && !isRolling)
@@ -84,6 +93,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (healthManager.currentHealth <= 0)
+        {
+            return;
+        }
+
         // Freeze X velocity during attack
         if (!isAttacking)
         {
@@ -196,5 +210,12 @@ public class PlayerController : MonoBehaviour
         isRolling = false;
         animator.SetBool("IsRolling", false);
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Objects"), false);
+    }
+
+    public void OnDeathAnimationEnd()
+    {
+        // log the death animation end
+        Debug.Log("Death animation ended");
+        //animator.enabled = false;
     }
 }
