@@ -18,10 +18,11 @@ public class HealthManager : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
-
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = maxHealth;
+        healthBar.value = currentHealth / maxHealth;
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -39,7 +40,7 @@ public class HealthManager : MonoBehaviour
         {
             Heal(10f);
         }
-
+        healthBar.value = currentHealth / maxHealth;
     }
 
 
@@ -56,11 +57,12 @@ public class HealthManager : MonoBehaviour
         // check if the player is dead
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             Die();
         }
 
         // apply knockback
-        rb.velocity = new Vector2(-transform.localScale.x * 8f, 5f);
+        rb.velocity = new Vector2(-transform.localScale.x * damage, 5f);
     }
 
     public void Die()
@@ -68,6 +70,14 @@ public class HealthManager : MonoBehaviour
         animator.SetBool("IsDead", true);
         // destroy the player
         //Destroy(transform);
+    }
+
+    public void OnDeathAnimationEnd()
+    {
+        //Destroy(gameObject);
+        //gameObject.SetActive(false);
+        currentHealth = maxHealth;
+        SnailEnemyPool.Instance.AddToPool(gameObject);
     }
 
     public void Heal(float healAmount)

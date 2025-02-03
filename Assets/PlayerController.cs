@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private bool isGrounded = false;
-    private bool isRolling = false;
+    public bool isRolling = false;
     private float xVelocity;
 
     // Attack variables
