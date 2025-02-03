@@ -14,6 +14,8 @@ public class HealthManager : MonoBehaviour
     // the current health of the player
     public float currentHealth;
 
+    public ScoreManager? scoreManager;
+
     private SpriteRenderer sr;
     private Rigidbody2D rb;
     private Animator animator;
@@ -53,6 +55,11 @@ public class HealthManager : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        // if health is already 0, do nothing
+        if (currentHealth <= 0)
+        {
+            return;
+        }
         // subtract the damage from the current health
         currentHealth -= damage;
         // update the health bar
@@ -75,14 +82,16 @@ public class HealthManager : MonoBehaviour
     public void Die()
     {
         animator.SetBool("IsDead", true);
+        if (scoreManager != null)
+        {
+            scoreManager.IncreaseKillCount();
+        }
         // destroy the player
         //Destroy(transform);
     }
 
     public void OnDeathAnimationEnd()
     {
-        //Destroy(gameObject);
-        //gameObject.SetActive(false);
         currentHealth = maxHealth;
         SnailEnemyPool.Instance.AddToPool(gameObject);
     }
