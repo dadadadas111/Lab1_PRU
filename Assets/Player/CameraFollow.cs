@@ -33,7 +33,7 @@ public class CameraFollow : MonoBehaviour
         maxY = background.transform.position.y + bgHalfHeight - camHalfHeight;
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (target == null) return;
 

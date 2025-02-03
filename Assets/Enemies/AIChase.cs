@@ -40,8 +40,11 @@ public class AIChase : MonoBehaviour
 
     private void ChasePlayer()
     {
-        Vector2 targetPosition = new Vector2(player.position.x, transform.position.y);
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, chaseSpeed * Time.deltaTime);
+        //Vector2 targetPosition = new Vector2(player.position.x, transform.position.y);
+        //transform.position = Vector2.MoveTowards(transform.position, targetPosition, chaseSpeed * Time.deltaTime
+
+        // instead of following the player directly, just need to find the direction and move in that direction
+        transform.position = Vector2.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
 
         // Flip sprite correctly
         transform.localScale = new Vector3(player.position.x < transform.position.x ? -1 : 1, 1, 1);

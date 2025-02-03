@@ -62,6 +62,9 @@ public class PlayerController : MonoBehaviour
             xVelocity = 0f; // Freeze movement during attack
         }
 
+        // round to ensure pixel-perfect movement
+        xVelocity = Mathf.Round(xVelocity * 16) / 16;
+
         // --- Flip Sprite ---
         // Only flip if NOT attacking
         if (!isAttacking)
@@ -103,13 +106,13 @@ public class PlayerController : MonoBehaviour
         // Freeze X velocity during attack
         if (!isAttacking)
         {
-            rb.velocity = new Vector2(xVelocity, rb.velocity.y);
+            rb.velocity = new Vector2(Mathf.Round(xVelocity * 16) / 16, rb.velocity.y); // Round to ensure pixel-perfect movement
         }
         else
         {
-            // move forward during attack
-            rb.velocity = new Vector2(transform.localScale.x * 1f, rb.velocity.y);
+            rb.velocity = new Vector2(Mathf.Round(transform.localScale.x * 1f * 16) / 16, rb.velocity.y); // Move forward during attack
         }
+
 
         animator.SetFloat("xVelocity", Mathf.Abs(xVelocity));
         animator.SetFloat("yVelocity", rb.velocity.y);
