@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
 
+    public GameOverMenu gameOverMenu;
+
     private Rigidbody2D rb;
     private Animator animator;
     private HealthManager healthManager;
@@ -217,5 +219,6 @@ public class PlayerController : MonoBehaviour
         // log the death animation end
         Debug.Log("Death animation ended");
         //animator.enabled = false;
+        gameOverMenu.GameOver();
     }
 }

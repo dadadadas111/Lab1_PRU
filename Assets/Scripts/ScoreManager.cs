@@ -3,7 +3,7 @@ using TMPro; // Required for TextMesh Pro
 
 public class ScoreManager : MonoBehaviour
 {
-    public int enemiesKilled = 0; // Tracks the number of enemies killed
+    public static int enemiesKilled = 0; // Tracks the number of enemies killed
     private TMP_Text textMeshPro; // Reference to the TMP text component
 
     void Start()
