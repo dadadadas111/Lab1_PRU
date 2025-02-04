@@ -103,6 +103,12 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        // Check if player is falling off the map
+        if (transform.position.y < -10)
+        {
+            gameOverMenu.GameOver();
+        }
+
         // Freeze X velocity during attack
         if (!isAttacking)
         {
@@ -135,12 +141,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (rb.velocity.y <= 0.1)
+        if (rb.velocity.y > 0)
         {
-            isGrounded = true;
-            animator.SetBool("isJumping", !isGrounded);
-            animator.SetBool("isFalling", false);
+            return;
         }
+
+        isGrounded = true;
+        animator.SetBool("isJumping", !isGrounded);
+        animator.SetBool("isFalling", false);
         //isGrounded = true;
         //animator.SetBool("isJumping", !isGrounded);
         //animator.SetBool("isFalling", false);

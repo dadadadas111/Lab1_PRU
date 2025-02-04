@@ -37,6 +37,7 @@ public class HealthManager : MonoBehaviour
         // if falling off the map, die
         if (transform.position.y < -10)
         {
+            Debug.Log("Fell off the map");
             Die();
         }
 
