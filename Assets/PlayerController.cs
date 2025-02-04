@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     public GameOverMenu gameOverMenu;
 
+    private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     private Animator animator;
     private HealthManager healthManager;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         healthManager = GetComponent<HealthManager>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -70,9 +72,15 @@ public class PlayerController : MonoBehaviour
         if (!isAttacking)
         {
             if (xVelocity > 0.1f)
+            {
                 transform.localScale = new Vector3(1, 1, 1);
+
+            }
             else if (xVelocity < -0.1f)
+            {
                 transform.localScale = new Vector3(-1, 1, 1);
+
+            }
         }
 
         // --- Jumping ---
@@ -229,7 +237,7 @@ public class PlayerController : MonoBehaviour
     {
         // log the death animation end
         Debug.Log("Death animation ended");
-        //animator.enabled = false;
+        animator.enabled = false;
         gameOverMenu.GameOver();
     }
 }

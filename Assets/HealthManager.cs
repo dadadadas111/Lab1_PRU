@@ -18,7 +18,9 @@ public class HealthManager : MonoBehaviour
 
     public bool isPlayer = false;
 
+#nullable enable
     public ScoreManager? scoreManager;
+#nullable disable
 
     private bool isDead = false;
 
@@ -41,6 +43,11 @@ public class HealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         // if falling off the map, die
         if (transform.position.y < -10 && !isDead)
         {
@@ -92,6 +99,8 @@ public class HealthManager : MonoBehaviour
     public void Die()
     {
         animator.SetBool("IsDead", true);
+        if (isPlayer)
+            animator.SetTrigger("Die");
         if (scoreManager != null)
         {
             scoreManager.IncreaseKillCount();
@@ -102,6 +111,8 @@ public class HealthManager : MonoBehaviour
     public void OnDeathAnimationEnd()
     {
         currentHealth = maxHealth;
+        isDead = false;
+        sr.color = Color.white;
         SnailEnemyPool.Instance.AddToPool(gameObject);
     }
 
@@ -123,7 +134,7 @@ public class HealthManager : MonoBehaviour
         {
             return;
         }
-        for (int i = 0; i < Random.Range(5, 10); i++)  // Random amount of pixels
+        for (int i = 0; i < Random.Range(15, 20); i++)  // Random amount of pixels
         {
             GameObject pixel = pixelPool.GetFromPool();
 
