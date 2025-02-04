@@ -14,7 +14,13 @@ public class HealthManager : MonoBehaviour
     // the current health of the player
     public float currentHealth;
 
+    public PixelPool pixelPool;
+
+    public bool isPlayer = false;
+
     public ScoreManager? scoreManager;
+
+    private bool isDead = false;
 
     private SpriteRenderer sr;
     private Rigidbody2D rb;
@@ -29,13 +35,14 @@ public class HealthManager : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sr.color = Color.white;
+        isDead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         // if falling off the map, die
-        if (transform.position.y < -10)
+        if (transform.position.y < -10 && !isDead)
         {
             Debug.Log("Fell off the map");
             Die();
@@ -69,6 +76,8 @@ public class HealthManager : MonoBehaviour
         // flash the player sprite
         StartCoroutine(FlashSpriteHit());
 
+        PixelEffect();
+
         // check if the player is dead
         if (currentHealth <= 0)
         {
@@ -87,8 +96,7 @@ public class HealthManager : MonoBehaviour
         {
             scoreManager.IncreaseKillCount();
         }
-        // destroy the player
-        //Destroy(transform);
+        isDead = true;
     }
 
     public void OnDeathAnimationEnd()
@@ -107,6 +115,37 @@ public class HealthManager : MonoBehaviour
         healthBar.value = currentHealth / maxHealth;
         // flash the player sprite
         StartCoroutine(FlashSpriteHeal());
+    }
+
+    void PixelEffect()
+    {
+        if (scoreManager == null)
+        {
+            return;
+        }
+        for (int i = 0; i < Random.Range(5, 10); i++)  // Random amount of pixels
+        {
+            GameObject pixel = pixelPool.GetFromPool();
+
+            // Spawn slightly above the enemy's position with some random offset
+            float xOffset = Random.Range(-0.2f, 0.2f); // Small random horizontal offset
+            float yOffset = Random.Range(0.3f, 0.6f); // Higher spawn position
+            pixel.transform.position = transform.position + new Vector3(xOffset, yOffset, 0);
+
+            // Apply more random velocity for a splash effect
+            Rigidbody2D rb = pixel.GetComponent<Rigidbody2D>();
+            rb.velocity = new Vector2(Random.Range(-2.5f, 2.5f), Random.Range(3f, 6f));
+
+
+            // Return pixel after 1 second
+            StartCoroutine(ReturnPixelAfterDelay(pixel, 1f));
+        }
+    }
+
+    private IEnumerator ReturnPixelAfterDelay(GameObject pixel, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        pixelPool.AddToPool(pixel);
     }
 
     IEnumerator FlashSpriteHit()
