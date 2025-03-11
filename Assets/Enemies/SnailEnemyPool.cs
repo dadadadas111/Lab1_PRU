@@ -7,7 +7,7 @@ public class SnailEnemyPool : MonoBehaviour
     public static SnailEnemyPool Instance { get; private set; }
 
     [SerializeField]
-    private GameObject snailPrefab; // Snail enemy prefab
+    private GameObject snailPrefab;
 
     private Queue<GameObject> availableSnails = new Queue<GameObject>();
 
@@ -19,7 +19,7 @@ public class SnailEnemyPool : MonoBehaviour
 
     private void GrowPool()
     {
-        for (int i = 0; i < 10; i++) // Adjust the pool size as needed
+        for (int i = 0; i < 10; i++)
         {
             var instanceToAdd = Instantiate(snailPrefab);
             instanceToAdd.transform.SetParent(transform);

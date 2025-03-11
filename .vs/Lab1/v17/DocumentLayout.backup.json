@@ -1,7 +1,28 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\Lab1\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1CC0F273-C937-DB27-2A3E-5E0806A03391}|Assembly-CSharp.Player.csproj|e:\\lab1\\assets\\enemies\\snailenemypool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1CC0F273-C937-DB27-2A3E-5E0806A03391}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\enemies\\snailenemypool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1CC0F273-C937-DB27-2A3E-5E0806A03391}|Assembly-CSharp.Player.csproj|e:\\lab1\\assets\\scenes\\pixelperfectmovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1CC0F273-C937-DB27-2A3E-5E0806A03391}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\scenes\\pixelperfectmovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1CC0F273-C937-DB27-2A3E-5E0806A03391}|Assembly-CSharp.Player.csproj|E:\\Lab1\\assets\\healthmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1CC0F273-C937-DB27-2A3E-5E0806A03391}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\healthmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1CC0F273-C937-DB27-2A3E-5E0806A03391}|Assembly-CSharp.Player.csproj|E:\\Lab1\\Assets\\Enemies\\AIChase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1CC0F273-C937-DB27-2A3E-5E0806A03391}|Assembly-CSharp.Player.csproj|solutionrelative:Assets\\Enemies\\AIChase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1CC0F273-C937-DB27-2A3E-5E0806A03391}|Assembly-CSharp.Player.csproj|E:\\Lab1\\Assets\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1CC0F273-C937-DB27-2A3E-5E0806A03391}|Assembly-CSharp.Player.csproj|solutionrelative:Assets\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +43,68 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SnailEnemyPool.cs",
+              "DocumentMoniker": "E:\\Lab1\\Assets\\Enemies\\SnailEnemyPool.cs",
+              "RelativeDocumentMoniker": "Assets\\Enemies\\SnailEnemyPool.cs",
+              "ToolTip": "E:\\Lab1\\Assets\\Enemies\\SnailEnemyPool.cs",
+              "RelativeToolTip": "Assets\\Enemies\\SnailEnemyPool.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-05T03:17:28.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PixelPerfectMovement.cs",
+              "DocumentMoniker": "E:\\Lab1\\Assets\\Scenes\\PixelPerfectMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\Scenes\\PixelPerfectMovement.cs",
+              "ToolTip": "E:\\Lab1\\Assets\\Scenes\\PixelPerfectMovement.cs",
+              "RelativeToolTip": "Assets\\Scenes\\PixelPerfectMovement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-05T02:03:23.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AIChase.cs",
+              "DocumentMoniker": "E:\\Lab1\\Assets\\Enemies\\AIChase.cs",
+              "RelativeDocumentMoniker": "Assets\\Enemies\\AIChase.cs",
+              "ToolTip": "E:\\Lab1\\Assets\\Enemies\\AIChase.cs",
+              "RelativeToolTip": "Assets\\Enemies\\AIChase.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-01T08:56:23.769Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HealthManager.cs",
+              "DocumentMoniker": "E:\\Lab1\\Assets\\HealthManager.cs",
+              "RelativeDocumentMoniker": "Assets\\HealthManager.cs",
+              "ToolTip": "E:\\Lab1\\Assets\\HealthManager.cs",
+              "RelativeToolTip": "Assets\\HealthManager.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-01T08:18:07.841Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PlayerController.cs",
+              "DocumentMoniker": "E:\\Lab1\\Assets\\PlayerController.cs",
+              "RelativeDocumentMoniker": "Assets\\PlayerController.cs",
+              "ToolTip": "E:\\Lab1\\Assets\\PlayerController.cs",
+              "RelativeToolTip": "Assets\\PlayerController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAABwAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-01T08:01:25.379Z"
             }
           ]
         }
